@@ -1,0 +1,47 @@
+dataset:
+  titanic:
+    raw_path: data/raw/Titanic.csv
+    interim_path: data/interim/titanic_ingested.csv
+    processed_path: data/processed/titanic_processed.csv
+    validated_path: data/validated/titanic_validated.csv
+
+
+preprocessing:
+  numeric_columns: [Age, Fare]
+  categorical_columns: [Sex, Embarked]
+  num_impute_strategy: median
+  cat_impute_strategy: most_frequent
+  scaler: minmax # options: standard | minmax | none
+  encoding: onehot
+  drop_first: true
+
+
+schema: # schema spec for final processed dataframe (simple format)
+  Survived:
+    dtype: int
+    nullable: false
+    checks: {isin: [0, 1]}
+  Pclass:
+    dtype: int
+    nullable: false
+    checks: {isin: [1, 2, 3]}
+  Age:
+    dtype: float
+    nullable: false
+    checks: {min: 0}
+  Fare:
+    dtype: float
+    nullable: false
+    checks: {min: 0}
+  Sex_male:
+    dtype: int
+    nullable: false
+    checks: {isin: [0, 1]}
+  Embarked_Q:
+    dtype: int
+    nullable: true
+    checks: {isin: [0, 1]}
+  Embarked_S:
+    dtype: int
+    nullable: true
+    checks: {isin: [0, 1]}
